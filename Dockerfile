@@ -8,13 +8,14 @@ RUN npm install
 
 COPY public ./public
 COPY src ./src
+COPY index.html .
 
 RUN npm run build
 
 # Production image
 FROM nginx:alpine
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copiar configuración custom para permitir React Router (opcional)
 RUN echo "server {\
